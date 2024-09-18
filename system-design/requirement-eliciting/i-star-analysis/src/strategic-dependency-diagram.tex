@@ -1,0 +1,18 @@
+\section{Strategic Dependency Diagram}
+
+\subsection{Strategic Dependencies Model}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth, angle=90]{../resources/strategic-dependency-diagram.jpg}
+    \caption{Library}
+    \label{fig:sd-model}
+\end{figure}
+
+\subsection{Dependency Relationships}
+\begin{itemize}
+    \item[ReportsNSummaries] Admin depends on the librarian to get reports and summaries such as: amount of lended and returned books, most active patrons
+    \item[Patron card] Librarian depends on the patron to have his patron card.
+    \item[Registered] The patron depends on the registar office to assume he has been registered and get his patron card.
+    \item[Book Operatoins] The patron depends on the librarian to perform book operations such as: borrow and return a book.
+\end{itemize}
+
