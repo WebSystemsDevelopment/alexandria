@@ -1,9 +1,7 @@
 @startuml
-package "req [Package] Non functional requirements [requirement diagram]" {
-    stereotype "Listing (optional)" as listing<<Requirement>> {
-        overview = List by: books ,patrons, borrowings, fines
-    }
+skinparam wrapwidth 200
 
+package "req [Package] Non functional requirements [requirement diagram]" {
     stereotype "Pagination" as pagination <<Requirement>> {
         overview = When displaying a list, either patrons or books, implement an infinite pagination display.
     }
@@ -17,9 +15,8 @@ package "req [Package] Non functional requirements [requirement diagram]" {
     }
     user_interface <.. magic_data: <<deriveReqt>>
     user_interface <.. pagination: <<deriveReqt>>
-    user_interface <.. listing: <<deriveReqt>>
 
-    stereotype "Logging (optional)" as logs <<Requirement>> {
+    stereotype "Logging" as logs <<Requirement>> {
         overview = Log events
     }
 
@@ -28,16 +25,9 @@ package "req [Package] Non functional requirements [requirement diagram]" {
     }
     error_handling_validation <.. logs: <<deriveReqt>>
 
-    stereotype "Relational database (optional)" as database<<Requirement>> {
-        overview = Implement a database using dapper using a relational language. It can be SQL Server/Postresql/Mysql
+    stereotype "Performance" as  performance <<Requirement>> {
+        overview = The system should have a low footprint
     }
 
-    stereotype "Unit testing" as u_test<<Requirement>> {
-        overview = Implement testing using the XUnit testing library
-    }
-
-    stereotype "Identifiers" as identifiers<<Requirement>> {
-        overview = The entities of the system should have an identifier
-    }
 }
 @enduml

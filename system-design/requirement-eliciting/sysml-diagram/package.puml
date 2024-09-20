@@ -11,6 +11,10 @@ package "req [Package] Library System [requirement diagram]" {
 !include ./search-reporting.puml
 !include ./non-functional.puml
 
+    stereotype "Listing" as listing <<Requirement>> {
+        overview = Display a list of books, patrons, fines, that can be sorted based on its attributes.
+    }
+
     stereotype "Library Management System" as system <<Requirement>> {
         overview = Develop a console application for managing a library's collection of books, patrons (library members), and borrowing transactions. The system should support the management of books and patrons, handle the lending process, and provide various reports and queries.
     }
@@ -18,6 +22,7 @@ package "req [Package] Library System [requirement diagram]" {
     system +-- search_reporting
     system +-- book_management
     system +-- patron_management
+    system <.. listing: <<deriveReqt>>
 }
 @enduml
 

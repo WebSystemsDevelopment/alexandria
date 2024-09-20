@@ -1,4 +1,5 @@
 @startuml
+skinparam wrapWidth 200
 package "req [Package] Search&Reporting [requirement diagram]" {
     stereotype "Ignore property" as field_ignore <<Requirement>> {
         overview = Searcher should search in all properties of a book
@@ -22,24 +23,28 @@ package "req [Package] Search&Reporting [requirement diagram]" {
         overview = Allow searching for patrons by name or membership number
     }
 
-    stereotype "Borrowing debt" (optional)" as borrowing_debt <<Requirement>> {
+    stereotype "Borrowing debt" as borrowing_debt <<Requirement>> {
         overview = The system should provide information about the patron's debts
     }
 
-    stereotype "Tier statistics (optional)" as tier_statistics <<Requirement>> {
-        overview = tier list statistics. The first three of: books ,patrons ,borrowings, fines.
+    stereotype "Borrowed books" as borrowed_books_statistics <<Requirement>> {
+        overview = A report about which are the most borrowed books based on its attributes and frequency date.
+    }
+
+    stereotype "Fines" as fines_statistics <<Requirement>> {
+        overview = A report based on fines. Where the admin can know who owns most money.
     }
 
     stereotype "Statistics (optional)" as statistics <<Requirement>> {
-        overview = Provide statistical data, such as the most borrowed books, most active patrons, etc
+        overview = Provide statistical data taking into account the frequency and amount.
     }
-    statistics <.. tier_statistics: <<deriveReqt>>
+    statistics +.. borrowed_books_statistics
+    statistics +.. fines_statistics
 
     stereotype "Reporting" as reporting <<Requirement>> {
         overview = generate reports such as a list of all books currently borrowed, overdue books, and borrowing history for a specific patron
     }
-    reporting <.. borrowing_debt: <<deriveReqt>>
-    reporting <.. statistics: <<deriveReqt>>
+    reporting +-- borrowing_debt: <<deriveReqt>>
 
     stereotype "Search and Reporting" as  search_reporting <<Requirement>> {
         overview = Implement search functionality to find books by title, author, or ISBN. Allow searching for patrons by name or membership number
@@ -49,5 +54,6 @@ package "req [Package] Search&Reporting [requirement diagram]" {
     search_reporting +-- patron_search
     search_reporting +-- reporting
     search_reporting +-- smart_search
+    search_reporting +-- statistics
 }
 @enduml
