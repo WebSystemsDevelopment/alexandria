@@ -1,29 +1,20 @@
-package ports
+package repository
 
 import (
-	domain "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port/out"
 )
-
-type BookRepository interface {
-	CreateBook(book *domain.Book) error
-	GetAllBooks() ([]domain.Book, error)
-	GetBookByID(id int) (*domain.Book, error)
-	UpdateBook(id int, book *domain.Book) error
-	DeleteBook(id int) error
-}
 
 type bookRepository struct {
 	books []domain.Book
 }
 
-func NewBookRepository() BookRepository {
-	return &bookRepository{
-		books: []domain.Book{},
-	}
+func NewBookRepository() out.BookRepository {
+	return &bookRepository{books: []domain.Book{}}
 }
 
 func (r *bookRepository) CreateBook(book *domain.Book) error {
-	book.ID = len(r.books) + 1 // Auto-increment ID for now
+	book.ID = len(r.books) + 1
 	r.books = append(r.books, *book)
 	return nil
 }

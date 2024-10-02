@@ -1,23 +1,16 @@
 package service
 
 import (
-	domain "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
-	repository "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/ports"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port/in"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port/out"
 )
 
-type BookService interface {
-	CreateBook(book *domain.Book) error
-	GetAllBooks() ([]domain.Book, error)
-	GetBookByID(id int) (*domain.Book, error)
-	UpdateBook(id int, book *domain.Book) error
-	DeleteBook(id int) error
-}
-
 type bookService struct {
-	repo repository.BookRepository
+	repo out.BookRepository
 }
 
-func NewBookService(repo repository.BookRepository) BookService {
+func NewBookService(repo out.BookRepository) in.BookService {
 	return &bookService{repo: repo}
 }
 

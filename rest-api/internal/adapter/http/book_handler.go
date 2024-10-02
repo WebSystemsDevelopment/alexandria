@@ -4,18 +4,17 @@ import (
 	"net/http"
 	"strconv"
 
-	service "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/application/service"
-	domain "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
-
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
+	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port/in"
 	"github.com/labstack/echo/v4"
 )
 
 // BookHandler handles book-related HTTP requests
 type BookHandler struct {
-	service service.BookService
+	service in.BookService
 }
 
-func NewBookHandler(service service.BookService) *BookHandler {
+func NewBookHandler(service in.BookService) *BookHandler {
 	return &BookHandler{service: service}
 }
 
