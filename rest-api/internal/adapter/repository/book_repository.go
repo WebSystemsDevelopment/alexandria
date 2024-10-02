@@ -1,38 +1,38 @@
-package repository
+package ports
 
 import (
-	model "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/models"
+	domain "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
 )
 
 type BookRepository interface {
-	CreateBook(book *model.Book) error
-	GetAllBooks() ([]model.Book, error)
-	GetBookByID(id int) (*model.Book, error)
-	UpdateBook(id int, book *model.Book) error
+	CreateBook(book *domain.Book) error
+	GetAllBooks() ([]domain.Book, error)
+	GetBookByID(id int) (*domain.Book, error)
+	UpdateBook(id int, book *domain.Book) error
 	DeleteBook(id int) error
 }
 
 type bookRepository struct {
-	books []model.Book
+	books []domain.Book
 }
 
 func NewBookRepository() BookRepository {
 	return &bookRepository{
-		books: []model.Book{},
+		books: []domain.Book{},
 	}
 }
 
-func (r *bookRepository) CreateBook(book *model.Book) error {
+func (r *bookRepository) CreateBook(book *domain.Book) error {
 	book.ID = len(r.books) + 1 // Auto-increment ID for now
 	r.books = append(r.books, *book)
 	return nil
 }
 
-func (r *bookRepository) GetAllBooks() ([]model.Book, error) {
+func (r *bookRepository) GetAllBooks() ([]domain.Book, error) {
 	return r.books, nil
 }
 
-func (r *bookRepository) GetBookByID(id int) (*model.Book, error) {
+func (r *bookRepository) GetBookByID(id int) (*domain.Book, error) {
 	for _, book := range r.books {
 		if book.ID == id {
 			return &book, nil
@@ -41,7 +41,7 @@ func (r *bookRepository) GetBookByID(id int) (*model.Book, error) {
 	return nil, nil
 }
 
-func (r *bookRepository) UpdateBook(id int, book *model.Book) error {
+func (r *bookRepository) UpdateBook(id int, book *domain.Book) error {
 	for i, b := range r.books {
 		if b.ID == id {
 			r.books[i] = *book

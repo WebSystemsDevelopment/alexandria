@@ -1,11 +1,11 @@
-package handler
+package adapter
 
 import (
 	"net/http"
 	"strconv"
 
-	model "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/models"
-	service "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/services"
+	service "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/application/service"
+	domain "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
 
 	"github.com/labstack/echo/v4"
 )
@@ -30,7 +30,7 @@ func NewBookHandler(service service.BookService) *BookHandler {
 // @Failure 400 {object} string "Bad Request"
 // @Router /books [post]
 func (h *BookHandler) CreateBook(c echo.Context) error {
-	book := new(model.Book)
+	book := new(domain.Book)
 	if err := c.Bind(book); err != nil {
 		return err
 	}
@@ -89,7 +89,7 @@ func (h *BookHandler) GetBookByID(c echo.Context) error {
 // @Router /books/{id} [put]
 func (h *BookHandler) UpdateBook(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	book := new(model.Book)
+	book := new(domain.Book)
 	if err := c.Bind(book); err != nil {
 		return err
 	}

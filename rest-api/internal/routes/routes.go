@@ -1,17 +1,17 @@
 package routes
 
 import (
-	handler "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/handlers"
-	repository "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/repositories"
-	service "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/services"
+	adapter "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/adapters"
+	service "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/services"
+	ports "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/ports"
 
 	"github.com/labstack/echo/v4"
 )
 
 func RegisterRoutes(e *echo.Echo) {
-	bookRepo := repository.NewBookRepository()
+	bookRepo := ports.NewBookRepository()
 	bookService := service.NewBookService(bookRepo)
-	bookHandler := handler.NewBookHandler(bookService)
+	bookHandler := adapter.NewBookHandler(bookService)
 
 	e.POST("/books", bookHandler.CreateBook)
 	e.GET("/books", bookHandler.GetAllBooks)
