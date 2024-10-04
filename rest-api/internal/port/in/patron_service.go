@@ -4,4 +4,5 @@ import "github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domai
 
 type PatronService interface {
 	CreatePatron(patron *domain.Patron) error
+	GetAllPatrons() ([]domain.Patron, error)
 }
