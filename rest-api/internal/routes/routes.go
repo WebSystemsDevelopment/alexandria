@@ -12,9 +12,18 @@ func RegisterRoutes(e *echo.Echo) {
 	bookService := service.NewBookService(bookRepo)
 	bookHandler := adapter.NewBookHandler(bookService)
 
+	patronRepo := repository.NewPatronRepository()
+	patronService := service.NewPatronService(patronRepo)
+	patronHandler := adapter.NewPatronHandler(patronService)
+
 	e.POST("/books", bookHandler.CreateBook)
 	e.GET("/books", bookHandler.GetAllBooks)
 	e.GET("/books/:id", bookHandler.GetBookByID)
 	e.PUT("/books/:id", bookHandler.UpdateBook)
 	e.DELETE("/books/:id", bookHandler.DeleteBook)
+
+	e.POST("/users", patronHandler.CreatePatron)
+	e.GET("/users", patronHandler.GetAllPatrons)
 }
+
+
