@@ -1,0 +1,7 @@
+@startuml
+
+!include database.puml
+!include core.puml
+
+@enduml
+
