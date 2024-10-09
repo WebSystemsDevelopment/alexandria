@@ -1,0 +1,56 @@
+.sidenav-container {
+    height: 100vh;
+}
+
+.sidenav {
+    width: 290px;
+    padding: 16px 0;
+}
+
+.sidenav-header {
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+.library-name {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.library-letter {
+    margin: 0 2px;
+}
+
+.options-container {
+    border: 1px solid #D0D0D0;
+    border-radius: 8px;
+    margin: 0 16px;
+    padding: 16px 0;
+    background-color: #efefefde;
+}
+
+.mat-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    transition: background-color 0.3s;
+}
+
+.mat-icon {
+    margin-right: 32px;
+    margin-left: 20px;
+    min-width: 24px;
+}
+
+.mat-list-item:hover {
+    background-color: #D0D0D0;
+}
+
+.active {
+    background-color: #C0C0C0;
+}
