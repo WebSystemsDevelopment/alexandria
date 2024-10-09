@@ -1,6 +1,0 @@
-@startuml
-package "Database" {
-    class Postgress
-}
-
-@enduml

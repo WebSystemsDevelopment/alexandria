@@ -1,7 +1,135 @@
 @startuml
+skinparam linetype ortho
 
-!include database.puml
-!include core.puml
+package "port/in" {
+    interface IPatronService {
+        + CreatePatron(patron: Patron): error
+        + GetAllPatrons(): ([]Patron, error)
+    }
+
+    interface IBookService {
+        GetAllBooks(): ([]domain.Book, error)
+        GetBookByID(id int): (*domain.Book, error)
+        CreateBook(book *domain.Book): error
+        UpdateBook(id int, book *domain.Book): error
+        DeleteBook(id int): error
+    }
+
+    interface IBorrowService {
+        CreateBorrow(domain.BorrowRequest): error
+        CheckBorrow(id int): (int, error)
+        GetAllBorrows(): ([]domain.Borrow, error)
+        HandleReturn(id int): error
+    }
+}
+
+package "port/out" {
+    interface IBookRepository {
+        + GetAllBooks(): ([]domain.Book, error)
+        + GetBookByID(id int): (*domain.Book, error)
+        + CreateBook(book *domain.Book): error
+        + UpdateBook(id int, book *domain.Book): error
+        + DeleteBook(id int): error
+    }
+
+    interface IPatronRepository {
+        + CreatePatron(patron: Patron): error
+        + GetAllPatrons(): ([]Patron, error)
+    }
+
+    interface IBorrowRepository {
+        + GetAllBorrows(): ([]domain.Borrow, error)
+        + CreateBorrow(domain.BorrowRequest): error
+    }
+}
+
+package "core/application/service" {
+    class BookService {
+        - repo: BookRepository
+    }
+    IBookService <|.. BookService
+    BookService *-- IBookRepository
+
+    class PatronService {
+        - repo: IPatronRepository
+    }
+    IPatronService <|.. PatronService
+    PatronService *-- IPatronRepository
+
+    class BorrowService {
+        - repo: IBorrowRepository
+    }
+    IBorrowService <|.. BorrowService
+    BorrowService *-- IBorrowRepository
+}
+
+package "adapter/http" {
+    class BookHandler {
+        - service: IBookService
+        + GetAllBooks(): ([]domain.Book, error)
+        + GetBookByID(id int): (*domain.Book, error)
+        + CreateBook(book *domain.Book): error
+        + UpdateBook(id int, book *domain.Book): error
+        + DeleteBook(id int): error
+    }
+    BookHandler *-- IBookService
+
+    class PatronHandler {
+        - service: IPatronService
+        + CreatePatron(patron: Patron): error
+        + GetAllPatrons(): ([]Patron, error)
+    }
+    PatronHandler *-- IPatronService
+
+    class BorrowHandler {
+        - service: IBorrowService
+        - CreateBorrow(domain.BorrowRequest): error
+        - CheckBorrow(id int): (int, error)
+        - GetAllBorrows(): ([]domain.Borrow, error)
+        - HandleReturn(id int): error
+    }
+    BorrowHandler *-- IBookService
+}
+
+package "core/domain" {
+    class Book {
+        ID: int
+        Title: string
+        Author: string
+        ISBN: string
+    }
+
+    class Patron {
+        Name: string
+        MemebershipNumber: UUID
+        Email: string
+    }
+
+    class PatronRequest {
+        Name: string
+        Email: string
+    }
+
+    class Borrow  {
+        Id        UUID
+        PatronId  UUID
+        BookId    int
+        DueDate   Time
+        IsActive  bool
+    }
+
+    class BorrowRequest  {
+        PatronId  uuid.UUID
+        BookId    int
+        DueDate   Time
+    }
+}
+
+package "adapter/repository" {
+    IBookRepository <|.. BookRepository
+    IPatronRepository <|.. PatronRepository
+    IBorrowRepository <|.. BorrowRepository
+}
 
 @enduml
 
