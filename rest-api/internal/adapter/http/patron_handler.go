@@ -2,6 +2,7 @@ package adapter
 
 import (
 	"net/http"
+
 	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
 	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port/in"
 	"github.com/labstack/echo/v4"
@@ -27,7 +28,7 @@ func NewPatronHandler(s in.PatronService) PatronHandler {
 // @Failure 500 {object} echo.HTTPError "Internal server error"
 // @Router /patrons [post]
 func (handler *PatronHandler) CreatePatron(context echo.Context) error {
-	patron := new(domain.Patron)
+	patron := new(domain.PatronRequest)
 	if err := context.Bind(patron); err != nil {
 		return err
 	}
@@ -47,10 +48,10 @@ func (handler *PatronHandler) CreatePatron(context echo.Context) error {
 // @Failure 500 {object} echo.HTTPError "Internal server error"
 // @Router /patrons [get]
 func (handler *PatronHandler) GetAllPatrons(context echo.Context) error {
-	Books, err := handler.service.GetAllPatrons()
+	patrons, err := handler.service.GetAllPatrons()
 	if err != nil {
 		return err
 	}
-	return context.JSON(http.StatusOK, Books)
+	return context.JSON(http.StatusOK, patrons)
 }
 

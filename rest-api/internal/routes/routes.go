@@ -22,8 +22,8 @@ func RegisterRoutes(e *echo.Echo) {
 	e.PUT("/books/:id", bookHandler.UpdateBook)
 	e.DELETE("/books/:id", bookHandler.DeleteBook)
 
-	e.POST("/users", patronHandler.CreatePatron)
-	e.GET("/users", patronHandler.GetAllPatrons)
+	e.POST("/patron", patronHandler.CreatePatron)
+	e.GET("/patron", patronHandler.GetAllPatrons)
 }
 
 

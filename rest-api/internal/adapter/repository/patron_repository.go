@@ -2,31 +2,36 @@ package repository
 
 import (
 	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/core/domain"
-	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/port"
 	"github.com/google/uuid"
 )
 
 type PatronRepository struct {
-    Database port.DatabasePort
-    Collection map[uuid.UUID]domain.Patron
+	patrons map[uuid.UUID]domain.Patron
 }
 
-func NewPatronRepository() (repository PatronRepository) {
-    repository := PatronRepository {
-
-    }
-    return
+func NewPatronRepository() ( PatronRepository) {
+	return PatronRepository{
+		patrons: make(map[uuid.UUID]domain.Patron),
+	}
 }
 
-func (r *PatronRepository) create(name string, email string) {
-    uuid := uuid.New()
-    patron := domain.Patron {
-        Name: name,
-        MembershipNumber: uuid,
-        Email: email,
-    }
+func (r PatronRepository) CreatePatron(patronRequest *domain.PatronRequest) error {
+	id := uuid.New()
+	lpatron := domain.Patron{
+		Name:             patronRequest.Name,
+		MembershipNumber: id,
+		Email:            patronRequest.Email,
+	}
 
-    r.Collection[uuid] = patron
-    r.Database.createPatron(patron)
+	r.patrons[id] = lpatron
+	return nil
+}
+
+func (r PatronRepository) GetAllPatrons() ([]domain.Patron, error) {
+	var patrons []domain.Patron
+	for _, patron := range r.patrons {
+		patrons = append(patrons, patron)
+	}
+	return patrons, nil
 }
 

@@ -18,7 +18,7 @@ func (p *PatronService) GetAllPatrons() ([]domain.Patron, error) {
 	return p.repo.GetAllPatrons()
 }
 
-func (p *PatronService) CreatePatron(patron *domain.Patron) error {
-	panic("unimplemented")
+func (p *PatronService) CreatePatron(patron *domain.PatronRequest) error {
+	return p.repo.CreatePatron(patron)
 }
 

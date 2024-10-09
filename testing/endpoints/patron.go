@@ -8,7 +8,6 @@ import (
 
 type Patron struct {
 	Name              string  `json:"name"`
-	MembershipNumber  string  `json:"membershipNumber"`
 	Email             string  `json:"email"`
 }
 
@@ -22,7 +21,6 @@ type PatronTest struct {
 func (p PatronTest) post(){
 	body := Patron{
 		Name:             "Juan",
-		MembershipNumber: "1000",
 		Email:            "Lima@lima.com",
 	}
 
@@ -37,7 +35,7 @@ func InitPatron(){
 	address := url.URL{
 		Scheme:      "http",
 		Host:        BASE_URL,
-		Path:        "books",
+		Path:        "patron",
 	}
 
 	patronTest := PatronTest{
