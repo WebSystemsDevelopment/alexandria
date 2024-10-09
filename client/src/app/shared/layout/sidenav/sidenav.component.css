@@ -1,0 +1,37 @@
+.sidenav-container {
+    height: 100vh;
+}
+
+.sidenav {
+    width: 250px;
+    background: linear-gradient(to bottom, #EBEBEB, #D9D9D9);
+    color: black;
+    padding: 16px 0;
+}
+
+.sidenav-header {
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.mat-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    transition: background-color 0.3s;
+}
+
+.mat-icon {
+    margin-right: 40px;
+}
+
+.mat-list-item:hover {
+    background-color: #C0C0C0;
+}
+
+.active {
+    background-color: #B0B0B0;
+}
