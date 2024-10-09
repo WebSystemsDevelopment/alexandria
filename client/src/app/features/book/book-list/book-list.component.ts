@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { Book } from '../../../core/models/book.model';
 import { BookService } from '../../../core/services/book.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -21,7 +22,7 @@ export class BookListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'author', 'isbn', 'actions'];
   books: Book[] = [];
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {
     this.bookService.getBooks().subscribe(books => {
@@ -30,10 +31,12 @@ export class BookListComponent implements OnInit {
   }
 
   onAddBook() {
+    this.router.navigate(['/add-book']);
     console.log('Add Book');
   }
 
   onEditBook(bookId: number) {
+    this.router.navigate([`/edit-book/${bookId}`]);
     console.log('Edit Book', bookId);
   }
 
