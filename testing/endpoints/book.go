@@ -13,7 +13,6 @@ type Book struct {
 	ISBN   string `json:"isbn"`
 }
 
-
 // e.POST("/books", bookHandler.CreateBook)
 // e.GET("/books", bookHandler.GetAllBooks)
 // e.GET("/books/:id", bookHandler.GetBookByID)
@@ -26,7 +25,6 @@ const SERVER_PORT = "8080"
 type BookTest struct {
 	address url.URL
 }
-
 
 func (b BookTest) post() {
 	body := Book{
@@ -65,7 +63,7 @@ func (b BookTest) remove(id string) {
 	petitions.BodyRequest("DELETE", b.address, nil)
 }
 
-func Init() {
+func InitBook() {
 	address := url.URL{
 		Scheme:      "http",
 		Host:        BASE_URL,
