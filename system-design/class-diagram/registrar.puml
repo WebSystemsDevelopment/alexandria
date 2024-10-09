@@ -1,0 +1,26 @@
+@startuml
+package "Registrar" {
+    class FormException
+    class FormValidator {
+        + checkForm(User user): FormException
+    }
+    FormValidator ..> FormException: <<creates>>
+
+    class PatronRepository {
+        - database: DatabasePort
+        - collection: <uuid, Patron>
+        + create(name: string, email: string): void
+    }
+    PatronRepository *-- FormValidator
+    PatronRepository --> Patron: <<creates>>
+    PatronRepository o-- DatabasePort
+    PatronRepository -- RestPort
+
+    class Patron {
+        - name: String
+        - membershipNumber: Guid
+        - email: String
+    }
+}
+@enduml
+

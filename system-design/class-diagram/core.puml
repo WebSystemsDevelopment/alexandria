@@ -1,0 +1,15 @@
+@startuml
+package "Core" {
+    interface DatabasePort {
+        + storePatron(Patron patron): Patron
+    }
+    DatabasePort <|.. Postgress
+
+    interface RestPort {
+        + createPatron(name: String, email: String): void
+    }
+
+    !include registrar.puml
+
+}
+@enduml
