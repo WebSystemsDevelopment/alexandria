@@ -1,5 +1,9 @@
 <div class="container">
-    <h1>Book List</h1>
+  <div class="header">
+    <h1>Books</h1>
+    <button mat-raised-button color="primary" (click)="onAddBook()">Add Book</button>
+  </div>
+
     <table mat-table [dataSource]="books" class="mat-elevation-z8">
 
       <ng-container matColumnDef="id">
@@ -20,6 +24,18 @@
       <ng-container matColumnDef="isbn">
         <th mat-header-cell *matHeaderCellDef> ISBN </th>
         <td mat-cell *matCellDef="let book"> {{book.isbn}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let book">
+          <button mat-icon-button (click)="onEditBook(book.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onDeleteBook(book.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
