@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/WebSystemsDevelopment/alexandria/rest-api/cmd/api/docs" // This is for Swagger documentation
+	_ "github.com/WebSystemsDevelopment/alexandria/rest-api/docs" // This is for Swagger documentation
 	"github.com/WebSystemsDevelopment/alexandria/rest-api/internal/routes"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"

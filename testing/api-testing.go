@@ -2,12 +2,13 @@ package main
 
 import (
 	endpoint "api/testing/endpoints"
-	// "log"
+	"log"
 )
 
 func main(){
-    // log.SetFlags(log.Llongfile)
-    endpoint.InitPatron()
+    log.SetFlags(log.Lshortfile)
+    // endpoint.InitPatron()
     // endpoint.InitBook()
+    endpoint.InitBorrow()
 }
 

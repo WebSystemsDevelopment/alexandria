@@ -31,8 +31,10 @@ func BodyRequest(httpMethod string, postURL url.URL, body any) {
 	request.Header.Set("Content-Type", "application/json")
     }
 
-
     resp, err := http.DefaultClient.Do(request);
+    if err != nil {
+	log.Fatalf("Failed to execute %s request: %v", httpMethod, err)
+    }
     handleRequest(httpMethod, *resp, err)
 }
 
@@ -53,6 +55,9 @@ func handleRequest(httpMethod string, resp http.Response, err error) {
     }()
 
     respBody, err  := io.ReadAll(resp.Body)
+    if err != nil {
+	log.Fatalf("Failed to read response: %v", err) 
+    }
     log.Print(resp.Status)
     log.Println("Response:\n", string(respBody))
 }
