@@ -7,7 +7,7 @@ import { SidenavComponent } from "./shared/layout/sidenav/sidenav.component";
   standalone: true,
   imports: [
     RouterOutlet,
-    SidenavComponent
+    SidenavComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
